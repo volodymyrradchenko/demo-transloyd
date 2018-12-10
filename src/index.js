@@ -1,13 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 import { createGlobalStyle } from 'styled-components/macro';
 
 const GlobalStyle = createGlobalStyle`
+  html, body {
+    padding: 0;
+    margin: 0;
+  }
+
   body {
-    background-color: coral;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas: "header""main";
+
+    font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    
+    color: #000000;
+    background-color: #F6F5F3;
   }
 `;
 
