@@ -37,6 +37,8 @@ const Card = styled.li`
   }
 
   .user-card__text h2 {
+    word-break: break-all;
+
     margin: 0;
     padding: 0;
   }
@@ -47,23 +49,91 @@ const Card = styled.li`
   }
 `;
 
+const Modal = styled.div`
+  /* display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+`;
 
 class UserCard extends Component {
+  state = {
+    isOpen: false
+  };
 
   render() {
-    const {user} = this.props;
+    const { user } = this.props;
 
     return (
       <Card>
-      <div class="user-card__image">
-        <img src={user.avatar_url} alt=""/>
-      </div>
-      <div class="user-card__text">
-      <h2>{user.login}</h2>
-      </div>
+        <div className="user-card__image">
+          <img src={user.avatar_url} alt="" />
+        </div>
+        <div className="user-card__text">
+          <h2>{user.login}</h2>
+          <button onClick={this.toggleModal}>Info</button>
+          {this.getInfo()}
+        </div>
       </Card>
     );
   }
+
+  toggleModal = ev => {
+    ev && ev.preventDefault && ev.preventDefault();
+
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+
+    console.log(this.state.isOpen)
+  };
+
+  getInfo() {
+    const { isOpen } = this.state;
+    // const { user } = this.props;
+
+    return (isOpen ? (
+      <Modal id="myModal">
+        <div className="modal-content">
+          <span onClick={this.toggleModal} className="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      </Modal>
+    ) : null);
+  }
+
+
+
 
 }
 

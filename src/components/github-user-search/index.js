@@ -6,6 +6,9 @@ import styled from 'styled-components/macro';
 
 const GithubWrapper = styled.section`
     margin: 20px, 0;
+    form {
+      background-color: coral;
+    }
 
   .user-card__container {
     display: grid;
@@ -17,6 +20,7 @@ const GithubWrapper = styled.section`
     margin: 20px 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: green;
   }
 
 `;
@@ -40,7 +44,7 @@ export default class GithubUserSearch extends Component {
       // TODO: add label for input with unique id
       <GithubWrapper>
         <form onSubmit={this.sendRequest.bind(this)}>
-          <label for="searchbar_id">Find Users:</label>
+          <label htmlFor="searchbar_id">Find Users:</label>
           <input
             id="searchbar_id"
             name="search"

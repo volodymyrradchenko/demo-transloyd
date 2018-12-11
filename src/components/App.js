@@ -12,7 +12,7 @@ const MainContent = styled.main`
     margin: 0 auto;
     padding: 20px 0;
     width: 70%;
-    background-color: coral;
+    /* background-color: coral; */
 `;
 
 class App extends Component {
