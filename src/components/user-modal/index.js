@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import fetchData from '../../decorators/fetchData';
+
 import styled from 'styled-components/macro';
 
 const Modal = styled.div`
@@ -39,49 +41,27 @@ const Modal = styled.div`
 `;
 
 class UserModal extends Component {
-  state = {
-    data: null,
-    isLoading: false,
-    error: ''
-  };
-
   async componentDidMount() {
-    this.setState({ isLoading: true });
-
-    const API = this.props.user + '/repos';
-
-    try {
-      const result = await fetch(API).then(response => {
-        console.log(response.data);
-        if (response.status >= 400 && response.status < 600) {
-          throw new Error('Bad response from server');
-        }
-        return response.json();
-      });
-
-      this.setState({
-        data: result,
-        isLoading: false
-      });
-    } catch (error) {
-      this.setState({ isLoading: false, error: error.message });
-    }
+    const {user, sendRequest} = this.props;
+    sendRequest(user + '/repos');
   }
 
   render() {
-    if (this.state.isLoading) return <p>Loading...</p>;
+    const {isLoading, toggleModal, data } = this.props;
+
+    if (isLoading) return <p>Loading...</p>;
 
     return (
       <Modal id="myModal">
         <div className="modal-content">
-          <span onClick={this.props.toggleModal} className="close">
+          <span onClick={toggleModal} className="close">
             &times;
           </span>
           <p>Some text in the Modal..</p>
-          {this.state.data ?
+          {data ?
 
             <ul className="modal-repos__container">
-            {this.state.data.map(item => (
+            {data.map(item => (
             <li key={item.id}>
               <a href={item.html_url}><h4>{item.name}</h4></a>
               <p>{item.description}</p>
@@ -96,4 +76,6 @@ class UserModal extends Component {
   }
 }
 
-export default UserModal;
+const WrappedUserModal = fetchData(UserModal);
+
+export default WrappedUserModal;
