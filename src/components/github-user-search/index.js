@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import UserCard from '../user-card';
+
+import UserList from '../user-list';
+// import UserCard from '../user-card';
 
 import styled from 'styled-components/macro';
 
@@ -9,20 +11,6 @@ const GithubWrapper = styled.section`
     form {
       background-color: coral;
     }
-
-  .user-card__container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
-    grid-column-gap: 1.5rem;
-    grid-row-gap: 1.5rem;
-
-    list-style: none;
-    margin: 20px 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: green;
-  }
-
 `;
 
 export default class GithubUserSearch extends Component {
@@ -55,13 +43,8 @@ export default class GithubUserSearch extends Component {
           />
           <button type="submit">Search</button>
         </form>
-          {this.state.data ?
-
-            <ul className="user-card__container">
-            {this.state.data.items.map(item => (
-            <UserCard user={item} key={item.id} />
-          ))}
-          </ul>
+        {this.state.data ? (
+          <UserList users={this.state.data.items} /> )
           : null}
         {this.state.error ? <p>{this.state.error}</p> : null}
       </GithubWrapper>
@@ -79,18 +62,21 @@ export default class GithubUserSearch extends Component {
     this.setState({ isLoading: true });
 
     const { request } = this.state;
-    const perPage = 20;
+    const perPage = 1;
+    // const GITHUB_TOKEN = `?client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
+    // const API = `https://api.github.com/${GITHUB_TOKEN}/search/users?per_page=${perPage}&page=1&q=${request}`;
+
     const API = `https://api.github.com/search/users?per_page=${perPage}&page=1&q=${request}`;
 
     try {
-      let response = await fetch(API).then(response => {
+      let result = await fetch(API).then(response => {
         if (response.status >= 400 && response.status < 600) {
           throw new Error('Bad response from server');
         }
         return response.json();
       });
 
-      this.setState({ isLoading: false, data: response });
+      this.setState({ isLoading: false, data: result });
     } catch (error) {
       // console.error(error);
       this.setState({ isLoading: false, error: error.message });
