@@ -18,13 +18,18 @@ export default OriginalComponent =>
     }
 
     sendRequest = async api => {
-      console.log('---fetch-data', api)
       this.setState({
         isLoading: true
       });
 
+        const GITHUB_AUTH = `client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
+
+        // const API = `https://api.github.com/${GITHUB_TOKEN}/search/users?per_page=${perPage}&page=1&q=${request}`;
+
+
+        console.log('---fetch-data', api + GITHUB_AUTH)
       try {
-        let result = await fetch(api).then(response => {
+        let result = await fetch(api + GITHUB_AUTH).then(response => {
           if (response.status >= 400 && response.status < 600) {
             throw new Error('Bad response from server.');
           }

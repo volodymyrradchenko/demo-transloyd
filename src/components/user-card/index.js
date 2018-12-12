@@ -22,6 +22,7 @@ const Card = styled.li`
   .user-card__image {
     height: 6.5rem;
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 1rem));
+    border-radius: 0.25rem;
 
     margin: 0;
     padding: 0;
@@ -60,7 +61,7 @@ class UserCard extends Component {
 
   async componentDidMount() {
     const {sendRequest, user} = this.props;
-    sendRequest(user);
+    sendRequest(user + '?');
   }
 
   render() {

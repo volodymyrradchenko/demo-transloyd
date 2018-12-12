@@ -14,6 +14,7 @@ const Modal = styled.div`
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  cursor: auto;
 
   /* Modal Content/Box */
   .modal-content {
@@ -22,6 +23,10 @@ const Modal = styled.div`
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+  }
+
+  .modal-repos__item {
+    list-style: none;
   }
 
   /* The Close Button */
@@ -43,7 +48,7 @@ const Modal = styled.div`
 class UserModal extends Component {
   async componentDidMount() {
     const {user, sendRequest} = this.props;
-    sendRequest(user + '/repos');
+    sendRequest(user + '/repos?');
   }
 
   render() {
@@ -62,10 +67,10 @@ class UserModal extends Component {
 
             <ul className="modal-repos__container">
             {data.map(item => (
-            <li key={item.id}>
+            <li className="modal-repos__item" key={item.id}>
               <a href={item.html_url}><h4>{item.name}</h4></a>
-              <p>{item.description}</p>
-              <p>Lenguage: {item.language}</p>
+              <p>Description: {item.description ? item.description : 'no description'}</p>
+              <p>Lenguage: {item.language ? item.language : 'no language'}</p>
             </li>
           ))}
           </ul>

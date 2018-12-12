@@ -10,9 +10,7 @@ const MainContent = styled.main`
     grid-area: main;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 20px 0;
     width: 70%;
-    /* background-color: coral; */
 `;
 
 class App extends Component {

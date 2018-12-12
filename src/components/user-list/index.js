@@ -11,10 +11,7 @@ const UserCardContainer = styled.ul `
     grid-row-gap: 1.5rem;
 
     list-style: none;
-    margin: 20px 0;
     padding: 0;
-    box-sizing: border-box;
-    background-color: green;
 `
 
 class UserList extends Component {
