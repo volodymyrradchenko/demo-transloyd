@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import fetchData from '../../decorators/fetchData';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components/macro';
 
@@ -46,13 +47,22 @@ const Modal = styled.div`
 `;
 
 class UserModal extends Component {
+  static propTypes = {
+    // from user-card component
+    user: PropTypes.string.isRequired,
+    sendRequest: PropTypes.func.isRequired,
+    // from fectchData decorator
+    isLoading: PropTypes.bool.isRequired,
+    toggleModal: PropTypes.func.isRequired,
+    data: PropTypes.array,
+  }
   async componentDidMount() {
     const {user, sendRequest} = this.props;
     sendRequest(user + '/repos?');
   }
 
   render() {
-    const {isLoading, toggleModal, data } = this.props;
+    const {isLoading, toggleModal, data = [] } = this.props;
 
     if (isLoading) return <p>Loading...</p>;
 

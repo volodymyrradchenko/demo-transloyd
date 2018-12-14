@@ -33,13 +33,14 @@ export default OriginalComponent =>
           if (response.status >= 400 && response.status < 600) {
             throw new Error('Bad response from server.');
           }
+          // console.log('---response', response.json().length)
           return response.json()
         });
 
         this.setState({ data: result, isLoading: false });
       } catch(error) {
 
-        console.error(error);
+        console.log('---fetchData-error', error);
         this.setState({ isLoading: false })
 
         throw error;

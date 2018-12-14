@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import UserModal from '../user-modal';
 
 import fetchData from '../../decorators/fetchData';
-
 
 import styled from 'styled-components/macro';
 
@@ -55,17 +56,28 @@ const Card = styled.li`
 `;
 
 class UserCard extends Component {
+  static propTypes = {
+    // from user-list component
+    user: PropTypes.string.isRequired,
+    // from fetchData decorator
+    data: PropTypes.shape({
+      avatar_url: PropTypes.string.isRequired,
+      login: PropTypes.string.isRequired,
+      bio: PropTypes.string,
+    }),
+    sendRequest: PropTypes.func.isRequired,
+  }
   state = {
     isOpen: false,
   }
 
   async componentDidMount() {
-    const {sendRequest, user} = this.props;
+    const {sendRequest, user = ''} = this.props;
     sendRequest(user + '?');
   }
 
   render() {
-    const { data } = this.props;
+    const { data = {} } = this.props;
 
     return (data ? (
       <Card>
@@ -74,7 +86,7 @@ class UserCard extends Component {
         </div>
         <div className="user-card__text">
           <h2>{data.login}</h2>
-          <p>{data.bio ? data.bio : 'no user info'}</p>
+          <p>{data.bio ? data.bio : '...no user info :('}</p>
           <button onClick={this.toggleModal}>Info</button>
           {this.getInfo()}
         </div>

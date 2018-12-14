@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components/macro';
 
@@ -63,9 +64,17 @@ const Form = styled.form`
 `;
 
 class SearchForm extends Component {
+  static propTypes = {
+    // from github-user-search component
+    searchName: PropTypes.string.isRequired,
+    handleRequest: PropTypes.func.isRequired,
+    sendRequest: PropTypes.func.isRequired,
+  }
   render() {
+    const { sendRequest, searchName = '', handleRequest } = this.props;
+
     return (
-      <Form onSubmit={this.props.sendRequest}>
+      <Form onSubmit={sendRequest}>
         <label htmlFor="searchbar_id" className="visually-hidden">
           Find Users:
         </label>
@@ -73,8 +82,8 @@ class SearchForm extends Component {
           id="searchbar_id"
           name="search"
           type="search"
-          value={this.props.searchName}
-          onChange={this.props.handleRequest}
+          value={searchName}
+          onChange={handleRequest}
           placeholder="Search user..."
         />
         <button type="submit">Search</button>

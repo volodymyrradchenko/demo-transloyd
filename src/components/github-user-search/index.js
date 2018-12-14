@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserList from '../user-list';
 import SearchForm from '../search-form';
+import PropTypes from 'prop-types';
 
 import fetchData from '../../decorators/fetchData';
 
@@ -29,6 +30,12 @@ const GithubWrapper = styled.section`
 `;
 
 class GithubUserSearch extends Component {
+  static propTypes = {
+    // from fetchData
+    data: PropTypes.object,
+    isLoading: PropTypes.bool.isRequired,
+    sendRequest: PropTypes.func.isRequired,
+  }
   constructor(props) {
     super(props);
 
@@ -38,8 +45,8 @@ class GithubUserSearch extends Component {
   }
 
   render() {
-    const { searchName } = this.state;
-    const { data, isLoading, sendRequest } = this.props;
+    const { searchName = '' } = this.state;
+    const { data = {}, isLoading, sendRequest } = this.props;
 
     const perPage = 20;
     const API = `https://api.github.com/search/users?per_page=${perPage}&page=1&q=${searchName}&`;

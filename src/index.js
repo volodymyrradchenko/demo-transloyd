@@ -19,7 +19,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: Roboto,"Helvetica Neue Light","Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
     font-size: 18px;
     font-weight: 400;
-    
+
     color: #000000;
     background-color: #F6F5F3;
   }

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import styled from 'styled-components/macro';
 
@@ -23,7 +22,7 @@ const Logo = styled.a`
   box-sizing: border-box;
   text-decoration: none;
   overflow: visible;
-  
+
   margin: 0;
   padding: 0 16px;
   outline: 0;
@@ -44,10 +43,6 @@ const Header = () => {
       </LogoContainer>
     </HeaderContainer>
   );
-};
-
-Header.propTypes = {
-  // title: PropTypes.string.isRequired
 };
 
 export default Header;
