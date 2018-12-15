@@ -69,6 +69,12 @@ class GithubUserSearch extends Component {
     );
   }
 
+  /**
+   * handleRequest
+   * @method
+   * @summary binds input field value to searchName param
+   * @param {Object} ev - an event of input field
+   */
   handleRequest = ev => {
     this.setState({
       searchName: ev.target.value

@@ -56,6 +56,11 @@ class UserModal extends Component {
     toggleModal: PropTypes.func.isRequired,
     data: PropTypes.array,
   }
+
+  /**
+   * @summary send request to server on mount
+   * @returns {Promise<void>}
+   */
   async componentDidMount() {
     const {user, sendRequest} = this.props;
     sendRequest(user + '/repos?');
@@ -64,7 +69,7 @@ class UserModal extends Component {
   render() {
     const {isLoading, toggleModal, data = [] } = this.props;
 
-    if (isLoading) return <p>Loading...</p>;
+    // if (isLoading) return <p>Loading...</p>;
 
     return (
       <Modal id="myModal">
@@ -72,19 +77,20 @@ class UserModal extends Component {
           <span onClick={toggleModal} className="close">
             &times;
           </span>
-          <p>Some text in the Modal..</p>
+          <p>Users repo's and their description</p>
           {data ?
 
             <ul className="modal-repos__container">
+
             {data.map(item => (
             <li className="modal-repos__item" key={item.id}>
               <a href={item.html_url}><h4>{item.name}</h4></a>
               <p>Description: {item.description ? item.description : 'no description'}</p>
-              <p>Lenguage: {item.language ? item.language : 'no language'}</p>
+              <p>Language: {item.language ? item.language : 'no language'}</p>
             </li>
           ))}
           </ul>
-          : null}
+          : isLoading ? <p>Loading data...</p> : null}
         </div>
       </Modal>
     );

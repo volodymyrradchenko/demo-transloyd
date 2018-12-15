@@ -24,3 +24,5 @@ yarn-error.log*
 
 # github api keys
 .env.development
+
+.idea/

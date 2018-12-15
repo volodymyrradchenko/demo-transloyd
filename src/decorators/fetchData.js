@@ -1,5 +1,14 @@
 import React, { Component as ReactComponent } from 'react';
 
+/**
+ * @file FetchData is a React Component wrapper. Any functionality from FetchData should be available in wrapped component out of the box.
+ *
+ * @module FetchData
+ * @extends Component
+ * @param OriginalComponent
+ */
+
+
 export default OriginalComponent =>
   class FetchData extends ReactComponent {
     state = {
@@ -17,6 +26,14 @@ export default OriginalComponent =>
       );
     }
 
+    /**
+     * sendRequest
+     * @method
+     * @async
+     * @summary perform a server request by providing api as a string
+     * @return {Promise<Object>} response - return data from the server or throw an error
+     * @param {String} api  - url to download from
+     */
     sendRequest = async api => {
       this.setState({
         isLoading: true
@@ -27,7 +44,7 @@ export default OriginalComponent =>
         // const API = `https://api.github.com/${GITHUB_TOKEN}/search/users?per_page=${perPage}&page=1&q=${request}`;
 
 
-        console.log('---fetch-data', api + GITHUB_AUTH)
+        console.log('---fetch-data', api + GITHUB_AUTH);
       try {
         let result = await fetch(api + GITHUB_AUTH).then(response => {
           if (response.status >= 400 && response.status < 600) {

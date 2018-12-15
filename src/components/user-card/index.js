@@ -9,7 +9,9 @@ import styled from 'styled-components/macro';
 
 const Card = styled.li`
   cursor: pointer;
-  border: 1px solid;
+  /* border: 1px solid; */
+  box-sizing: border-box;
+  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   border-radius: 0.25rem;
   display: flex;
   flex-direction: column;
@@ -19,6 +21,10 @@ const Card = styled.li`
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
+  &:hover {
+    box-shadow: 0 0 0 0.25rem rgb(63,81,181);
+  }
 
   .user-card__image {
     height: 6.5rem;
@@ -67,10 +73,15 @@ class UserCard extends Component {
     }),
     sendRequest: PropTypes.func.isRequired,
   }
+
   state = {
     isOpen: false,
   }
 
+  /**
+   * @summary send a request to github on mount
+   * @returns {Promise<void>}
+   */
   async componentDidMount() {
     const {sendRequest, user = ''} = this.props;
     sendRequest(user + '?');
@@ -95,6 +106,12 @@ class UserCard extends Component {
     );
   }
 
+  /**
+   * toggleModal
+   * @method
+   * @summary a toggle function for UserModal component
+   * @param ev - button on-click event
+   */
   toggleModal = ev => {
     ev && ev.preventDefault && ev.preventDefault();
 
@@ -103,6 +120,12 @@ class UserCard extends Component {
     });
   };
 
+  /**
+   * getInfo
+   * @method
+   * @summary gets executed when isOpen is triggered, returns modal component
+   * @returns {String} - returns HTML
+   */
   getInfo() {
     const { isOpen } = this.state;
 
