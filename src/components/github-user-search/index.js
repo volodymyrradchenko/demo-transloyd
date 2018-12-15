@@ -51,8 +51,8 @@ class GithubUserSearch extends Component {
     const perPage = 20;
     const API = `https://api.github.com/search/users?per_page=${perPage}&page=1&q=${searchName}&`;
 
-    if (isLoading) return <p>Loading...</p>;
-    return (
+
+    return isLoading ? <p>Loading...</p> : (
       // TODO: add label for input with unique id
       <GithubWrapper>
         <div className="search-form__container">

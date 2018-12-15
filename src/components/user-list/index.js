@@ -28,7 +28,7 @@ class UserList extends Component {
       <UserCardContainer>
         {users.map(user => {
           return (
-            <Suspense key={user.id} fallback={<p>Loading users</p>}>
+            <Suspense key={user.id} fallback={<p>User skeleton</p>}>
               <UserCard user={user.url} />
             </Suspense>
           );

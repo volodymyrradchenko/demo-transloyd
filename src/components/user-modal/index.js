@@ -30,6 +30,7 @@ const Modal = styled.div`
     list-style: none;
   }
 
+
   /* The Close Button */
   .close {
     color: #aaa;
@@ -72,19 +73,19 @@ class UserModal extends Component {
     // if (isLoading) return <p>Loading...</p>;
 
     return (
-      <Modal id="myModal">
+      <Modal id="my-modal">
         <div className="modal-content">
           <span onClick={toggleModal} className="close">
             &times;
           </span>
-          <p>Users repo's and their description</p>
+          <h2>Repositories and their description</h2>
           {data ?
 
             <ul className="modal-repos__container">
 
             {data.map(item => (
             <li className="modal-repos__item" key={item.id}>
-              <a href={item.html_url}><h4>{item.name}</h4></a>
+              <a href={item.html_url} rel="noopener noreferrer" target="_blank"><h4>{item.name}</h4></a>
               <p>Description: {item.description ? item.description : 'no description'}</p>
               <p>Language: {item.language ? item.language : 'no language'}</p>
             </li>

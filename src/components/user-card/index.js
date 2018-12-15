@@ -23,7 +23,7 @@ const Card = styled.li`
   box-sizing: border-box;
 
   &:hover {
-    box-shadow: 0 0 0 0.25rem rgb(63,81,181);
+    box-shadow: 0 10px 16px 0 rgba(63,81,181,0.7),0 6px 20px 0 rgba(63,81,181,0.8);
   }
 
   .user-card__image {
@@ -58,6 +58,17 @@ const Card = styled.li`
   .user-card__text p {
     margin-top: 0.75rem;
     margin-bottom: 0.75rem;
+    word-wrap: break-all;
+  }
+  .user-card__text button {
+    margin-top: auto;
+    padding: 0.75rem;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 0.8;
   }
 `;
 
@@ -98,7 +109,7 @@ class UserCard extends Component {
         <div className="user-card__text">
           <h2>{data.login}</h2>
           <p>{data.bio ? data.bio : '...no user info :('}</p>
-          <button onClick={this.toggleModal}>Info</button>
+          <button onClick={this.toggleModal}>Show repos</button>
           {this.getInfo()}
         </div>
       </Card>
