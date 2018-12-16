@@ -32,6 +32,9 @@ const Spinner = styled.div`
     border-color: #cef transparent #cef transparent;
     animation: ${rotate} 1.2s linear infinite;
   }
+  h3 {
+    text-align: center;
+  }
 `;
 
 // import UserCard from '../user-card';
@@ -47,6 +50,10 @@ const UserCardContainer = styled.ul`
   padding: 0;
 `;
 
+const NothingFound = styled.h3`
+    text-align: center;
+`
+
 class UserList extends Component {
   static propTypes = {
     // from github-user-search component
@@ -55,7 +62,7 @@ class UserList extends Component {
   render() {
     let { users = [] } = this.props;
     console.log('---user-list', users);
-    return (
+    return users.length > 0 ? (
       <UserCardContainer>
         {users.map(user => {
           return (
@@ -72,7 +79,7 @@ class UserList extends Component {
           );
         })}
       </UserCardContainer>
-    );
+    ) : <NothingFound>No results found :( You can try a different search term.</NothingFound>
   }
 }
 

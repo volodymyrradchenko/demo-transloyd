@@ -85,7 +85,7 @@ class SearchForm extends Component {
           value={searchName}
           onChange={handleRequest}
           placeholder="GitHub user search..."
-          autofocus="true"
+          autoFocus={true}
         />
         <button type="submit">Search</button>
       </Form>

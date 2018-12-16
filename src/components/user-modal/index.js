@@ -109,7 +109,7 @@ class UserModal extends Component {
             &times;
           </span>
           <h2>Repositories and their description</h2>
-          {data !== null && data.length > 1 ? (
+          {data !== null && data.length > 0 ? (
             <ul className="modal-repos__container">
               {data.map(item => (
                 <li className="modal-repos__item" key={item.id}>
