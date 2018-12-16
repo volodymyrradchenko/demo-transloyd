@@ -69,6 +69,7 @@ const Card = styled.li`
     font-size: 18px;
     font-weight: 700;
     line-height: 0.8;
+    background-color: whitesmoke;
   }
 `;
 

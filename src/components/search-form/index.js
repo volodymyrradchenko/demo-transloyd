@@ -46,8 +46,8 @@ const Form = styled.form`
   button {
     box-sizing: border-box;
     border-radius: 0px 2px 2px 0px;
-    background: #8b798c;
-    font-weight: 300;
+    background: #7C6E7C;
+    font-weight: 500;
     text-transform: uppercase;
     color: white;
     padding: 0.35em 0.75em;

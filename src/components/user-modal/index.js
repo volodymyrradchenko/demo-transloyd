@@ -35,7 +35,7 @@ const Modal = styled.div`
     color: #aaa;
     float: right;
     font-size: 28px;
-    font-weight: bold;
+    font-weight: 700;
   }
 
   .close:hover,

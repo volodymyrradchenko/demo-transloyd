@@ -39,7 +39,9 @@ export default OriginalComponent =>
         isLoading: true
       });
 
-        const GITHUB_AUTH = `client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}`;
+        const GITHUB_AUTH = process.env.REACT_APP_GITHUB_ID && process.env.REACT_APP_GITHUB_SECRET ?
+        `client_id=${process.env.REACT_APP_GITHUB_ID}&client_secret=${process.env.REACT_APP_GITHUB_SECRET}` :
+        '';
 
         // const API = `https://api.github.com/${GITHUB_TOKEN}/search/users?per_page=${perPage}&page=1&q=${request}`;
 
