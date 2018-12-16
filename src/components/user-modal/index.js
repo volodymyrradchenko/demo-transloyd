@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fetchData from '../../decorators/fetchData';
 import PropTypes from 'prop-types';
 
-import styled from 'styled-components/macro';
+import styled, { keyframes } from 'styled-components/macro';
 
 const Modal = styled.div`
   /* display: none; /* Hidden by default */
@@ -30,7 +30,6 @@ const Modal = styled.div`
     list-style: none;
   }
 
-
   /* The Close Button */
   .close {
     color: #aaa;
@@ -47,6 +46,37 @@ const Modal = styled.div`
   }
 `;
 
+const rotate = keyframes`
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+`;
+
+const Spinner = styled.div`
+  margin: 20px 0;
+  text-align: center;
+
+  .lds-dual-ring {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+  }
+  .lds-dual-ring:after {
+    content: ' ';
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #cef;
+    border-color: #cef transparent #cef transparent;
+    animation: ${rotate} 1.2s linear infinite;
+  }
+`;
+
 class UserModal extends Component {
   static propTypes = {
     // from user-card component
@@ -55,20 +85,20 @@ class UserModal extends Component {
     // from fectchData decorator
     isLoading: PropTypes.bool.isRequired,
     toggleModal: PropTypes.func.isRequired,
-    data: PropTypes.array,
-  }
+    data: PropTypes.array
+  };
 
   /**
    * @summary send request to server on mount
    * @returns {Promise<void>}
    */
   async componentDidMount() {
-    const {user, sendRequest} = this.props;
+    const { user, sendRequest } = this.props;
     sendRequest(user + '/repos?');
   }
 
   render() {
-    const {isLoading, toggleModal, data = [] } = this.props;
+    const { isLoading, toggleModal, data = [] } = this.props;
 
     // if (isLoading) return <p>Loading...</p>;
 
@@ -79,19 +109,34 @@ class UserModal extends Component {
             &times;
           </span>
           <h2>Repositories and their description</h2>
-          {data ?
-
+          {data !== null && data.length > 1 ? (
             <ul className="modal-repos__container">
-
-            {data.map(item => (
-            <li className="modal-repos__item" key={item.id}>
-              <a href={item.html_url} rel="noopener noreferrer" target="_blank"><h4>{item.name}</h4></a>
-              <p>Description: {item.description ? item.description : 'no description'}</p>
-              <p>Language: {item.language ? item.language : 'no language'}</p>
-            </li>
-          ))}
-          </ul>
-          : isLoading ? <p>Loading data...</p> : null}
+              {data.map(item => (
+                <li className="modal-repos__item" key={item.id}>
+                  <a
+                    href={item.html_url}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <h4>{item.name}</h4>
+                  </a>
+                  <p>
+                    Description:{' '}
+                    {item.description ? item.description : 'no description'}
+                  </p>
+                  <p>
+                    Language: {item.language ? item.language : 'no language'}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          ) : isLoading ? (
+            <Spinner>
+              <div className="lds-dual-ring" />
+            </Spinner>
+          ) : (
+            <p>Nothing to show here :(</p>
+          )}
         </div>
       </Modal>
     );
